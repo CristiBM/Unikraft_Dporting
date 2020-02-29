@@ -1,0 +1,11 @@
+--- tests/tsd2.c
++++ tests/tsd2.c
+@@ -195,7 +195,7 @@ int pthread_test_tsd2()
+    */
+   for (i = 1; i < NUM_THREADS; i++)
+     {
+-      int result = 0;
++      long result = 0;
+ 
+       assert(pthread_join(thread[i], (void **) &result) == 0);
+     }

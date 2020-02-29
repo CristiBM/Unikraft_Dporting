@@ -1,0 +1,11 @@
+--- tests/join0.c
++++ tests/join0.c
+@@ -61,7 +61,7 @@ func(void * arg)
+ int pthread_test_join0()
+ {
+   pthread_t id;
+-  int result;
++  long result;
+ 
+   /* Create a single thread and wait for it to exit. */
+   assert(pthread_create(&id, NULL, func, (void *) 123) == 0);

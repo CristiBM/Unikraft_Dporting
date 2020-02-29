@@ -1,0 +1,11 @@
+--- tests/exception1.c
++++ tests/exception1.c
+@@ -186,7 +186,7 @@ pthread_test_exception1()
+   for (i = 0; i < NUMTHREADS; i++)
+     {
+       int fail = 0;
+-      int result = 0;
++      long result = 0;
+ 
+ 	/* Canceled thread */
+       assert(pthread_join(ct[i], (void **) &result) == 0);

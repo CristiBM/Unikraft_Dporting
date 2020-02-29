@@ -1,0 +1,161 @@
+#  SPDX-License-Identifier: BSD-3-Clause
+#
+#  lzma Makefile.uk
+#
+#  Authors: Marius-Cristian Baciu <marius.baciu@stud.acs.upb.ro>
+#
+#  Copyright (c) 2019, University Politehnica of Bucharest. All rights reserved.
+#
+#  Redistribution and use in source and binary forms, with or without
+#  modification, are permitted provided that the following conditions
+#  are met:
+#
+#  1. Redistributions of source code must retain the above copyright
+#     notice, this list of conditions and the following disclaimer.
+#  2. Redistributions in binary form must reproduce the above copyright
+#     notice, this list of conditions and the following disclaimer in the
+#     documentation and/or other materials provided with the distribution.
+#  3. Neither the name of the copyright holder nor the names of its
+#     contributors may be used to endorse or promote products derived from
+#     this software without specific prior written permission.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+#  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+#  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+#  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+#  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+#  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+#  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+#  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+#  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+#  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+#  POSSIBILITY OF SUCH DAMAGE.
+#
+#  THIS HEADER MAY NOT BE EXTRACTED OR MODIFIED IN ANY WAY.
+#
+
+################################################################################
+# Library registration
+################################################################################
+$(eval $(call addlib_s,liblzma,$(CONFIG_LIBLZMA)))
+#$(eval $(call addlib_s,liblzmaglue,$(CONFIG_LIBLZMA)))
+
+################################################################################
+# Original sources
+################################################################################
+LIBLZMA_VERSION=8.43
+LIBLZMA_URL=https://ftp.lzma.org/pub/lzma/lzma-$(LIBLZMA_VERSION).zip
+LIBLZMA_PATCHDIR=$(LIBLZMA_BASE)/patches
+LIBLZMA_SUBDIR=lzma-$(LIBLZMA_VERSION)
+#$(eval $(call fetch,liblzma,$(LIBLZMA_URL)))
+
+# this directive does nothing for the current component
+# $(eval $(call patch,liblzma,$(LIBLZMA_PATCHDIR),$(LIBLZMA_SUBDIR)))
+
+################################################################################
+# Helpers
+################################################################################
+# LIBLZMA_EXTRACTED = $(LIBLZMA_ORIGIN)/lzma-$(LIBLZMA_VERSION)
+
+################################################################################
+# Library includes
+################################################################################
+LIBLZMA_COMMON_INCLUDES-y     += -I$(LIBLZMA_BASE)/include
+LIBLZMA_COMMON_INCLUDES-y     += -I$(LIBLZMA_BASE)
+CINCLUDES-$(CONFIG_LIBLZMA)   += $(LIBLZMA_COMMON_INCLUDES-y)
+CXXINCLUDES-$(CONFIG_LIBLZMA) += $(LIBLZMA_COMMON_INCLUDES-y)
+
+LIBLZMA_CINCLUDES   += -I$(LIBLZMA_BASE)
+LIBLZMA_CXXINCLUDES += -I$(LIBLZMA_BASE)
+
+################################################################################
+# Global flags
+################################################################################
+# Suppress flags
+LIBLZMA_SUPPRESS_FLAGS += -Wno-unused-parameter \
+	-Wno-unused-variable -Wno-unused-value -Wno-unused-function \
+	-Wno-missing-field-initializers -Wno-implicit-fallthrough
+LIBLZMA_CFLAGS-y   += $(LIBLZMA_SUPPRESS_FLAGS) \
+	-Wno-pointer-to-int-cast -Wno-int-to-pointer-cast
+LIBLZMA_CXXFLAGS-y += $(LIBLZMA_SUPPRESS_FLAGS)
+
+# Preprocessing symbols
+# Eliminated D_HAVE_CONFIG_ used for pcre and added the rest from p7zip's Makefile.machine
+LIBLZMA_DEFINES    += -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DNDEBUG -D_REENTRANT -DENV_UNIX -D_7ZIP_LARGE_PAGES
+LIBLZMA_CFLAGS-y   += $(LIBLZMA_DEFINES) -lm -static
+LIBLZMA_CXXFLAGS-y += $(LIBLZMA_DEFINES) -lm -static
+
+################################################################################
+# OS dependencies code - Glue between Unikraft and lzma
+################################################################################
+#LIBLZMAGLUE_SRCS-y += $(LIBLZMA_BASE)/sample.c|glue
+
+################################################################################
+# lzma code
+################################################################################
+
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/7zAlloc.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/7zArcIn.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/7zBuf2.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/7zBuf.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/7zCrc.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/7zCrcOpt.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/7zDec.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/7zFile.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/7zStream.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Aes.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/AesOpt.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Alloc.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Bcj2.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Bcj2Enc.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Bra86.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Bra.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/BraIA64.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/CpuArch.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Delta.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/DllSecur.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/LzFind.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/LzFindMt.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Lzma2Dec.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Lzma2DecMt.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Lzma2Enc.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Lzma86Dec.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Lzma86Enc.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/LzmaDec.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/LzmaEnc.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/LzmaLib.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/MtCoder.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/MtDec.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Ppmd7.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Ppmd7Dec.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Ppmd7Enc.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Sha256.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Sort.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Threads.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/Xz.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/XzCrc64.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/XzCrc64Opt.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/XzDec.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/XzEnc.c
+LIBLZMA_SRCS-y += $(LIBLZMA_BASE)/XzIn.c
+################################################################################
+# lzma prepare
+################################################################################
+# Run ./configure
+#$(LIBLZMA_EXTRACTED)/config.status: $(LIBLZMA_BUILD)/.origin
+#	$(call verbose_cmd,CONFIG,liblzma: $(notdir $@), \
+#		cd $(LIBLZMA_EXTRACTED) && ./configure --disable-cpp)
+
+# Create lzma_chartables.c symlink
+#$(LIBLZMA_EXTRACTED)/lzma_chartables.c: $(LIBLZMA_EXTRACTED)/config.status
+#	$(call verbose_cmd,LINK,liblzma: $(notdir $@), \
+#		cd $(LIBLZMA_EXTRACTED) && ln -s lzma_chartables.c.dist $@)
+
+#LIBLZMA_PREPARED_DEPS = \
+#	$(LIBLZMA_EXTRACTED)/config.status \
+#	$(LIBLZMA_EXTRACTED)/lzma_chartables.c \
+
+#$(LIBLZMA_BUILD)/.prepared: $(LIBLZMA_PREPARED_DEPS)
+
+#UK_PREPARE += $(LIBLZMA_BUILD)/.prepared
+

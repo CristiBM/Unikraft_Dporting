@@ -1,0 +1,11 @@
+--- tests/delay2.c
++++ tests/delay2.c
+@@ -67,7 +67,7 @@ func(void * arg)
+ int pthread_test_delay2()
+ {
+   pthread_t t;
+-  int result = 0;
++  long result = 0;
+ 
+   mx = PTHREAD_MUTEX_INITIALIZER;
+ 

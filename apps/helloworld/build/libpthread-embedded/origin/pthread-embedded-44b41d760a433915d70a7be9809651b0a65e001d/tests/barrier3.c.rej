@@ -1,0 +1,11 @@
+--- tests/barrier3.c
++++ tests/barrier3.c
+@@ -47,7 +47,7 @@
+ #include "test.h"
+ 
+ static pthread_barrier_t barrier = NULL;
+-static int result = 1;
++static long result = 1;
+ 
+ static void * func(void * arg)
+ {

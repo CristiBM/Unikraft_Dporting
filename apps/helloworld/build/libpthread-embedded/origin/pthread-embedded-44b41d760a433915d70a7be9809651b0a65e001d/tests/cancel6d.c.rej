@@ -1,0 +1,11 @@
+--- tests/cancel6d.c
++++ tests/cancel6d.c
+@@ -171,7 +171,7 @@ int pthread_test_cancel6d()
+   for (i = 1; i <= NUMTHREADS; i++)
+     {
+       int fail = 0;
+-      int result = 0;
++      long result = 0;
+ 
+       assert(pthread_join(t[i], (void **) &result) == 0);
+ 

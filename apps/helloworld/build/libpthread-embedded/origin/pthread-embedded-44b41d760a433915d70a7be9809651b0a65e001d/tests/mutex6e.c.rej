@@ -1,0 +1,11 @@
+--- tests/mutex6e.c
++++ tests/mutex6e.c
+@@ -83,7 +83,7 @@ int
+ pthread_test_mutex6e()
+ {
+   pthread_t t;
+-  int result = 0;
++  long result = 0;
+   int mxType = -1;
+ 
+   lockCount = 0;

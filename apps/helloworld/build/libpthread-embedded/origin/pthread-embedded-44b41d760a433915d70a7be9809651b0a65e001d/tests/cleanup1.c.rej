@@ -1,0 +1,11 @@
+--- tests/cleanup1.c
++++ tests/cleanup1.c
+@@ -206,7 +206,7 @@ int pthread_test_cleanup1()
+   for (i = 1; i <= NUMTHREADS; i++)
+     {
+       int fail = 0;
+-      int result = 0;
++      long result = 0;
+ 
+       assert(pthread_join(t[i], (void **) &result) == 0);
+ 

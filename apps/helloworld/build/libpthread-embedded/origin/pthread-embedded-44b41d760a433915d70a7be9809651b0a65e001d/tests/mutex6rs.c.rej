@@ -1,0 +1,11 @@
+--- tests/mutex6rs.c
++++ tests/mutex6rs.c
+@@ -81,7 +81,7 @@ int
+ pthread_test_mutex6rs()
+ {
+   pthread_t t;
+-  int result = 0;
++  long result = 0;
+ 
+   lockCount = 0;
+   mutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER;

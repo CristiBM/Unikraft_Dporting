@@ -1,0 +1,11 @@
+--- tests/condvar1_2.c
++++ tests/condvar1_2.c
+@@ -95,7 +95,7 @@ static pthread_cond_t cv[NUM_CV];
+ int pthread_test_condvar1_2()
+ {
+   int i, j, k;
+-  int result = -1;
++  long result = -1;
+   pthread_t t;
+ 
+   for (k = 0; k < NUM_LOOPS; k++)

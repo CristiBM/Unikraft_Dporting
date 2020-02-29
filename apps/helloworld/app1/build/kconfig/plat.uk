@@ -1,0 +1,4 @@
+source "/home/me/git/unikraft-hackathon/scripts/my_unikraft_repo/unikraft/plat/linuxu/Config.uk"
+source "/home/me/git/unikraft-hackathon/scripts/my_unikraft_repo/unikraft/plat/kvm/Config.uk"
+source "/home/me/git/unikraft-hackathon/scripts/my_unikraft_repo/unikraft/plat/xen/Config.uk"
+source "/home/me/git/unikraft-hackathon/scripts/my_unikraft_repo/unikraft/plat/Config.uk"

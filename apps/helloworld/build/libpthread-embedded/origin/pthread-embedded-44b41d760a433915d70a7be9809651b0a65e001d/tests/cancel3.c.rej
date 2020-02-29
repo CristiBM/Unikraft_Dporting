@@ -1,0 +1,11 @@
+--- tests/cancel3.c
++++ tests/cancel3.c
+@@ -180,7 +180,7 @@ int pthread_test_cancel3()
+   for (i = 1; i <= NUMTHREADS; i++)
+     {
+       int fail = 0;
+-      int result = 0;
++      long result = 0;
+ 
+       /*
+        * The thread does not contain any cancelation points, so

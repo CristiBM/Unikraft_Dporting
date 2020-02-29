@@ -1,0 +1,11 @@
+--- tests/inherit1.c
++++ tests/inherit1.c
+@@ -100,7 +100,7 @@ int pthread_test_inherit1()
+   pthread_t t;
+   pthread_t mainThread = pthread_self();
+   pthread_attr_t attr;
+-  int result = 0;
++  long result = 0;
+   struct sched_param param;
+   struct sched_param mainParam;
+   int prio;

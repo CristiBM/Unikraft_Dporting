@@ -1,0 +1,11 @@
+--- tests/join2.c
++++ tests/join2.c
+@@ -55,7 +55,7 @@ int pthread_test_join2()
+ {
+   pthread_t id[4];
+   int i;
+-  int result;
++  long result;
+ 
+   /* Create a few threads and then exit. */
+   for (i = 0; i < 4; i++)

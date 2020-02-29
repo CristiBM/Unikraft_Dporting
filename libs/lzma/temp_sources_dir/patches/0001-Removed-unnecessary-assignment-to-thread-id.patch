@@ -1,0 +1,24 @@
+From c593fb821ffb05d1e8f98d8a4681c95c9a522014 Mon Sep 17 00:00:00 2001
+From: Baciu Marius-Cristian <marius.baciu@stud.acs.upb.ro>
+Date: Tue, 11 Feb 2020 19:03:43 +0200
+Subject: [PATCH] Removed unnecessary assignment to thread id
+
+---
+ C/Threads.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/C/Threads.c b/C/Threads.c
+index 1b8203f..86fd705 100644
+--- a/C/Threads.c
++++ b/C/Threads.c
+@@ -228,7 +228,6 @@ WRes Thread_Close(CThread *thread)
+     if (!thread->_created) return SZ_OK;
+     
+     pthread_detach(thread->_tid);
+-    thread->_tid = 0;
+     thread->_created = 0;
+     return SZ_OK;
+ }
+-- 
+2.17.1
+

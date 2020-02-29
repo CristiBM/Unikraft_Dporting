@@ -1,0 +1,11 @@
+--- tests/condvar2_1.c
++++ tests/condvar2_1.c
+@@ -114,7 +114,7 @@ int pthread_test_condvar2_1()
+ {
+   int i;
+   pthread_t t[NUMTHREADS + 1];
+-  int result = 0;
++  long result = 0;
+   struct _timeb currSysTime;
+   const unsigned int NANOSEC_PER_MILLISEC = 1000000;
+ 

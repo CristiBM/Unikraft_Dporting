@@ -1,0 +1,15 @@
+--- tests/rwlock6.c
++++ tests/rwlock6.c
+@@ -82,9 +82,9 @@ int pthread_test_rwlock6()
+   pthread_t wrt1;
+   pthread_t wrt2;
+   pthread_t rdt;
+-  int wr1Result = 0;
+-  int wr2Result = 0;
+-  int rdResult = 0;
++  long wr1Result = 0;
++  long wr2Result = 0;
++  long rdResult = 0;
+ 
+   rwlock1 = PTHREAD_RWLOCK_INITIALIZER;
+ 

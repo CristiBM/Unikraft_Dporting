@@ -1,0 +1,11 @@
+--- tests/mutex7e.c
++++ tests/mutex7e.c
+@@ -83,7 +83,7 @@ int
+ pthread_test_mutex7e()
+ {
+   pthread_t t;
+-  int result = 0;
++  long result = 0;
+   int mxType = -1;
+ 
+   lockCount = 0;

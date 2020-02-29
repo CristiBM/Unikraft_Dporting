@@ -1,0 +1,11 @@
+--- tests/condvar3_1.c
++++ tests/condvar3_1.c
+@@ -146,7 +146,7 @@ int pthread_test_condvar3_1()
+ {
+   int i;
+   pthread_t t[NUMTHREADS + 1];
+-  int result = 0;
++  long result = 0;
+ 
+   timedout = 0;
+   signaled = 0;

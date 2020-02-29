@@ -1,0 +1,11 @@
+--- tests/semaphore4.c
++++ tests/semaphore4.c
+@@ -134,7 +134,7 @@ int pthread_test_semaphore4(void)
+ 
+   assert(pthread_cancel(t[5]) == 0);
+   {
+-    int result;
++    long result;
+     assert(pthread_join(t[5], (void **) &result) == 0);
+   }
+   assert(sem_getvalue(&s, &value) == 0);
