@@ -27,8 +27,10 @@ DMDINCLUDES += -I$(CONFIG_UK_BASE)/include
 # Set the text and data sections to be readable and writable. Also,
 # do not page-align the data segment. If the output format supports
 # Unix style magic numbers, mark the output as OMAGIC.
-LIBLDFLAGS  += -nostdinc -nostdlib -Wl,--omagic -Wl,-r -Wl,-d -Wl,--build-id=none
-LDFLAGS     += -nostdinc -nostdlib -Wl,--omagic -Wl,--build-id=none
+#LIBLDFLAGS  += -nostdinc -nostdlib -Wl,--omagic -Wl,-r -Wl,-d -Wl,--build-id=none
+#LDFLAGS     += -nostdinc -nostdlib -Wl,--omagic -Wl,--build-id=none
+LIBLDFLAGS  += -Xcc=-no-pie -L=--omagic -Xcc=-r -L=-d -L=--build-id=none
+LDFLAGS     += -L=--omagic -L=--build-id=none
 
 CFLAGS-$(CONFIG_OPTIMIZE_NONE)            += -O0 -fno-optimize-sibling-calls -fno-tree-vectorize
 CXXFLAGS-$(CONFIG_OPTIMIZE_NONE)          += -O0 -fno-optimize-sibling-calls -fno-tree-vectorize
@@ -86,5 +88,5 @@ M4FLAGS  += -DUK_VERSION=$(UK_VERSION).$(UK_SUBVERSION)
 ASFLAGS-$(call gcc_version_ge,6,1)	+= -no-pie
 CFLAGS-$(call gcc_version_ge,6,1)	+= -no-pie
 CXXFLAGS-$(call gcc_version_ge,6,1)	+= -no-pie
-LIBLDFLAGS-$(call gcc_version_ge,6,1)	+= -no-pie
-LDFLAGS-$(call gcc_version_ge,6,1)	+= -no-pie
+LIBLDFLAGS-$(call gcc_version_ge,6,1)	+= #-L=-no-pie
+LDFLAGS-$(call gcc_version_ge,6,1)	+= #-L=-no-pie

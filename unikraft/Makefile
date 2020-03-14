@@ -481,7 +481,7 @@ endif
 include $(CONFIG_UK_BASE)/arch/$(UK_FAMILY)/Compiler.uk
 
 # Make variables (CC, etc...)
-LD		:= $(CONFIG_CROSS_COMPILE)gcc
+LD		:= $(CONFIG_CROSS_COMPILE)dmd
 CC		:= $(CONFIG_CROSS_COMPILE)gcc
 CPP		:= $(CC)
 CXX		:= $(CPP)

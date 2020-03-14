@@ -158,6 +158,7 @@ endef
 # addlib $libname
 define addlib =
 $(call mk_sub_build_dir,$(1))
+$(warning addinglib: $(1))
 UK_LIBS += $(1)
 $(eval $(call uc,$(1))_BASE    := $(_IMPORT_BASE))
 $(eval $(call uc,$(1))_BUILD   := $(BUILD_DIR)/$(1))
@@ -692,11 +693,11 @@ $(call libname2preolib,$(1)): $($(call vprefix_lib,$(1),OBJS)) \
 		      $($(call vprefix_lib,$(1),LDFLAGS-y)) \
 		      $($(call vprefix_lib,$(1),OBJS)) \
 		      $($(call vprefix_lib,$(1),OBJS-y)) \
-		      -Wl$(comma)--start-group \
-		      $($(call vprefix_lib,$(1),ALIBS)) \
+		      -L=--start-group \
+          $($(call vprefix_lib,$(1),ALIBS)) \
 		      $($(call vprefix_lib,$(1),ALIBS-y)) \
-		      -Wl$(comma)--end-group \
-		      -o $(call libname2preolib,$(1)))
+          -L=--end-group \
+		      -of=$(call libname2preolib,$(1)))
 
 $(call libname2olib,$(1)): $(call libname2preolib,$(1)) $(if $(wildcard $($(call vprefix_lib,$(1),EXPORTS))),$($(call vprefix_lib,$(1),EXPORTS)),)
 	$(call build_cmd,OBJCOPY,,$(call libname2olib,$(1)),\
